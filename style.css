@@ -1,3 +1,12 @@
+:root {
+    --color-base-bg: #dbdbdb;
+
+    --color-square-bg: #cccccc;
+    --color-square-font: #1a1a1a;
+
+    --color-button-bg: #e2e2e2;
+}
+
 *, *::before, *:after {
     box-sizing: border-box;
     padding: 0;
@@ -5,16 +14,35 @@
 }
 
 body {
+    background-color: var(--color-base-bg);
     display: flex;
     justify-content: center;
+    align-items: space-around;
     width: 100vw;
     height: 100vh;
+    /* border: 2px solid red; */
 }
 
 .container {
-    display: grid;
-    place-items: center;
-    gap: 2rem;
+    display: flex;
+    flex-flow: column;
+    gap: 2.5rem;
+    justify-content: center;
+    align-items: center;
+    /* border: 2px solid red; */
+}
+
+.dark-mode-button img {
+	position: fixed;
+	right: 20px;
+	top: 20px;
+	width: 25px;
+}
+
+.dark-mode-button img:nth-child(1) {
+	right: 26px;
+	top: 25.5px;
+	width: 12.5px;
 }
 
 .squares {
@@ -23,31 +51,49 @@ body {
     grid-template-rows: auto;
     row-gap: 1rem;
     column-gap: 1rem;
+    /* border: 2px solid red; */
 }
 
 .square {
     width: 50px;
     height: 50px; 
-    color: white;
+    color: var(--color-square-font);
     font-size: 40px;
     text-align: center;
-    background-color: grey;  
+    background-color: var(--color-square-bg);  
     border: 1px solid black;
 }
 .keyboard {
     display: grid;
     place-items: center;
+    border: 2px solid red;
+}
+
+.keyboard .row {
+    margin-bottom: 4px;
 }
 
 button {
+    background-color: var(--color-button-bg);
+    border-radius: 5px;
     padding: 5px;
     margin: 0.5px;
-    min-width: 28px;
+    width: 30px;
+    height: 45px;
+    font-weight: 600;
+}
+
+@media (min-width: 768px) {
+    button {
+        width: 65px;
+        height: 40px;
+    }
+    .container {
+        gap: 1rem;
+    }
 }
 
 .enter, .backspace {
-    
-    font-size: 19px;
-    padding-top: 0;
-    padding-bottom:0;
+    min-width: 45px;
+    font-weight: 900;
 }
