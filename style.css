@@ -1,0 +1,53 @@
+*, *::before, *:after {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.container {
+    display: grid;
+    place-items: center;
+    gap: 2rem;
+}
+
+.squares {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: auto;
+    row-gap: 1rem;
+    column-gap: 1rem;
+}
+
+.square {
+    width: 50px;
+    height: 50px; 
+    color: white;
+    font-size: 40px;
+    text-align: center;
+    background-color: grey;  
+    border: 1px solid black;
+}
+.keyboard {
+    display: grid;
+    place-items: center;
+}
+
+button {
+    padding: 5px;
+    margin: 0.5px;
+    min-width: 28px;
+}
+
+.enter, .backspace {
+    
+    font-size: 19px;
+    padding-top: 0;
+    padding-bottom:0;
+}
