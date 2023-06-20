@@ -17,7 +17,7 @@ body {
     background-color: var(--color-base-bg);
     display: flex;
     justify-content: center;
-    align-items: space-around;
+    align-items: stretch;
     width: 100vw;
     height: 100vh;
     /* border: 2px solid red; */
@@ -27,8 +27,9 @@ body {
     display: flex;
     flex-flow: column;
     gap: 2.5rem;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    min-width: 100%;
     /* border: 2px solid red; */
 }
 
@@ -66,6 +67,7 @@ body {
 .keyboard {
     display: grid;
     place-items: center;
+    margin-bottom: 3px;
     /* border: 2px solid red; */
 }
 
@@ -78,10 +80,12 @@ button {
     border-radius: 5px;
     padding: 5px;
     margin: 0.5px;
-    width: 30px;
+    width: 33px;
     height: 45px;
     font-weight: 600;
 }
+
+
 
 @media (min-width: 768px) {
     button {
@@ -89,11 +93,49 @@ button {
         height: 40px;
     }
     .container {
-        gap: 1rem;
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 450px) {
+    button {
+        width: 33px;
+    }
+}
+
+@media (max-width: 384px) {
+    button {
+        width: 29px;
     }
 }
 
 .enter, .backspace {
     min-width: 45px;
     font-weight: 900;
+}
+
+.not-in-list {
+    position: absolute;
+    top: 40%;
+    width: 200px;
+    height: 80px;
+    background-color: grey;
+    padding: 15px;
+    text-align: center;
+    color: white;
+    font-size: 18px;
+    display: none;
+}
+
+.win {
+    position: absolute;
+    top: 40%;
+    width: 200px;
+    height: 100px;
+    background-color: grey;
+    padding: 15px;
+    text-align: center;
+    color: white;
+    font-size: 18px;
+    display: none;
 }
