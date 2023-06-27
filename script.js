@@ -225,7 +225,11 @@ enterKey.addEventListener('click', e => {
         
         flag = true;
     } else {
-        error.style.display = 'block';
+       error.style.display = 'block';
+        setTimeout(() => {
+          error.style.display = 'none';
+        }, 1000)
+        
     }
 })
 
