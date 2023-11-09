@@ -1,0 +1,19 @@
+{
+  "name": "wordgame",
+  "version": "1.0.0",
+  "description": "Demo Site at: https://bugsdev2.github.io/wordGame/",
+  "main": "script.js",
+  "scripts": {
+    "test": "live-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bugsdev2/wordGame.git"
+  },
+  "author": "bugsdev2",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/bugsdev2/wordGame/issues"
+  },
+  "homepage": "https://github.com/bugsdev2/wordGame#readme"
+}
