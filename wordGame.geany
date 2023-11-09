@@ -27,9 +27,14 @@ long_line_column=72
 
 [files]
 current_page=0
+FILE_NAME_0=865;HTML;0;EUTF-8;1;1;0;%2Fhome%2Fbugs%2FProjects%2FwordGame%2Findex.html;0;4
+FILE_NAME_1=171;CSS;0;EUTF-8;1;1;0;%2Fhome%2Fbugs%2FProjects%2FwordGame%2Fstyle.css;0;4
+FILE_NAME_2=104144;Javascript;0;EUTF-8;1;1;0;%2Fhome%2Fbugs%2FProjects%2FwordGame%2Fscript2.js;0;4
+FILE_NAME_3=0;None;0;EUTF-8;1;1;0;%2Fhome%2Fbugs%2FProjects%2FwordGame%2FwordList.txt;0;4
+FILE_NAME_4=0;None;0;EUTF-8;1;1;0;%2Fhome%2Fbugs%2FProjects%2FwordGame%2Fdictionary.txt;0;4
 
 [VTE]
-last_dir=/home/bugs/Projects/simpleCalc
+last_dir=/home/bugs/Projects/wordGame
 
 [prjorg]
 source_patterns=*.c;*.C;*.cpp;*.cxx;*.c++;*.cc;*.m;
