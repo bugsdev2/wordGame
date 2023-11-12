@@ -10,9 +10,6 @@
 
 #message-container {
 	position: absolute;
-/*
-	background: var(--green);
-*/
 	padding: 8px;
 	font-size: 0.9rem;
 	width: clamp(50px, 80%, 200px);
@@ -20,7 +17,6 @@
 	transform: translateX(-50%);
 	top:0.5rem;
 	text-align: center;
-	visibility: hodden;
 }
 
 button {
@@ -30,7 +26,7 @@ button {
 
 button[data-key="Enter"],
 button[data-key="Backspace"] {
-	width: clamp(30px, 15%, 100px);
+	width: clamp(30px, 15%, 90px);
 }
 
 #rows {
