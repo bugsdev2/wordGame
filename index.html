@@ -7,51 +7,49 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-dark">
-    <div class="container-lg">
-		<div class="row">
+<body class="bg-dark text-light" >
+    <div class="container d-flex flex-column justify-content-between" style="height: 98vh">
+		
+        <div class="row mt-4">
 			<div class="col">
-				<div id="message-container">Hello</div>
-			</div>
-		</div>
-        <div class="row">
-			<div class="col">
-				<div class="tiles-container"></div>
+				<div id="tiles-container">
+					<div id="message-container"></div>
+				</div>
 			</div>
         </div>
         <div class="keyboard d-flex flex-column gap-1 text-center">
-            <div>
-                <button data-key class="btn btn-light">Q</button>
-                <button data-key class="btn btn-light">W</button>
-                <button data-key class="btn btn-light">E</button>
-                <button data-key class="btn btn-light">R</button>
-                <button data-key class="btn btn-light">T</button>
-                <button data-key class="btn btn-light">Y</button>
-                <button data-key class="btn btn-light">U</button>
-                <button data-key class="btn btn-light">I</button>
-                <button data-key class="btn btn-light">O</button>
-                <button data-key class="btn btn-light">P</button>
+            <div id="rows">
+                <button data-key="Q" class="btn btn-success">Q</button>
+                <button data-key="W" class="btn btn-warning">W</button>
+                <button data-key="E" class="btn btn-dark border-secondary">E</button>
+                <button data-key="R" class="btn btn-light">R</button>
+                <button data-key="T" class="btn btn-light">T</button>
+                <button data-key="Y" class="btn btn-light">Y</button>
+                <button data-key="U" class="btn btn-light">U</button>
+                <button data-key="I" class="btn btn-light">I</button>
+                <button data-key="O" class="btn btn-light">O</button>
+                <button data-key="P" class="btn btn-light">P</button>
             </div>
-            <div>
-                <button data-key class="btn btn-light">A</button>
-                <button data-key class="btn btn-light">S</button>
-                <button data-key class="btn btn-light">D</button>
-                <button data-key class="btn btn-light">F</button>
-                <button data-key class="btn btn-light">G</button>
-                <button data-key class="btn btn-light">H</button>
-                <button data-key class="btn btn-light">J</button>
-                <button data-key class="btn btn-light">K</button>
-                <button data-key class="btn btn-light">L</button>
+            <div id="rows">
+                <button data-key="A" class="btn btn-light">A</button>
+                <button data-key="S" class="btn btn-light">S</button>
+                <button data-key="D" class="btn btn-light">D</button>
+                <button data-key="F" class="btn btn-light">F</button>
+                <button data-key="G" class="btn btn-light">G</button>
+                <button data-key="H" class="btn btn-light">H</button>
+                <button data-key="J" class="btn btn-light">J</button>
+                <button data-key="K" class="btn btn-light">K</button>
+                <button data-key="L" class="btn btn-light">L</button>
             </div>
-            <div class="">
+            <div id="rows">
                 <button data-key="Enter" class="btn btn-light">↵</button>
-                <button data-key class="btn btn-light">Z</button>
-                <button data-key class="btn btn-light">X</button>
-                <button data-key class="btn btn-light">C</button>
-                <button data-key class="btn btn-light">V</button>
-                <button data-key class="btn btn-light">B</button>
-                <button data-key class="btn btn-light">N</button>
-                <button data-key class="btn btn-light">M</button>
+                <button data-key="Z" class="btn btn-light">Z</button>
+                <button data-key="X" class="btn btn-light">X</button>
+                <button data-key="C" class="btn btn-light">C</button>
+                <button data-key="V" class="btn btn-light">V</button>
+                <button data-key="B" class="btn btn-light">B</button>
+                <button data-key="N" class="btn btn-light">N</button>
+                <button data-key="M" class="btn btn-light">M</button>
                 <button data-key="Backspace" class="btn btn-light">⌫</button>
             </div>
         </div>

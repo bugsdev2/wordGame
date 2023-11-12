@@ -1,17 +1,64 @@
 :root {
-    --color-base-bg: #dbdbdb;
+	--green: #198754;
+	--yellow: #FFC107;
+	--red: #DC3545;
+	--lightBlue: #0DCAF0;
+	--darkBlue: #0D6EFD;
+	--grey: #6C757D;
+}
 
-    --color-square-bg: #cccccc;
-    --color-square-font: #1a1a1a;
 
-    --color-button-bg: #e2e2e2;
+#message-container {
+	position: absolute;
+/*
+	background: var(--green);
+*/
+	padding: 8px;
+	font-size: 0.9rem;
+	width: clamp(50px, 80%, 200px);
+	left: 50%;
+	transform: translateX(-50%);
+	top:0.5rem;
+	text-align: center;
+	visibility: hodden;
 }
 
 button {
-	width: clamp(12px, 9%, 60px);
+	width: clamp(30px, 10%, 60px);
+	height: 50px;
 }
 
 button[data-key="Enter"],
 button[data-key="Backspace"] {
-	width: clamp(50px, 10%, 75px);
+	width: clamp(30px, 15%, 100px);
 }
+
+#rows {
+	display: flex;
+	justify-content: center;
+}
+
+#rows button {
+	margin: 0 0.9px;
+}
+
+#tiles-container {
+	position: relative;
+	display: grid;
+	grid-template-columns: repeat(5, clamp(25px, 10vh, 60px));
+	gap: 0.5rem;
+	justify-content: center;
+	
+}
+
+#tiles-container #tile{
+	height: clamp(25px, 10vh, 60px);
+	width: clamp(25px, 10vh, 60px);
+	background: #000;
+	border: 1px solid var(--grey);
+	font-size: 2rem;
+	display: grid;
+	place-items: center;
+	user-select: none;
+}
+
