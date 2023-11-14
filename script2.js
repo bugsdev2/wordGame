@@ -22,27 +22,27 @@ const WordsWorld = (function(){
 			let obj = { 'location': index, 'item': letter, 'row': row, 'color': 'dark' };
 			return obj;
 		});
-		const tempArr = gameWord.split('').map((letter,index) => {
+		const tempArr = temp.split('').map((letter,index) => {
 			let obj = { 'location': index, 'item': letter, 'row': row };
 			return obj;
 		});
-		
+		let j = 0;
 		for(let i=0;i<userGuess.length;i++){
-			for(let j=0;j<temp;j++){
-				if(userGuess[i] === temp[j] && userGuess.indexOf(userGuess[i]) === tempArr[j].location){
-					console.log(userArr);
-					userArr[j].color = 'green';
-					temp[i] = '';
-					
-				} else if ( userGuess[i] === temp[j]){
-					userAgent[j].color === 'yellow';
-					temp[i] = '';
-				} else {
-					temp[i] = '';
+			for(let j = 0;j<temp.length;j++){
+				if(userGuess[i] === temp[j]){
+					if(userGuess.indexOf(userGuess[i]) === gameWord.indexOf(temp[j])){
+						userArr[i].color = "green";
+					} else {
+						userArr[i].color = "yellow";
+					}
+					let tempNewArr = temp.split('');
+					tempNewArr.splice(j, 1);
+					temp = tempNewArr.join('');
 				}
 			}
 		}
-		console.log(userArr[0]);
+		GameBoard.changeRowColor(userArr);
+		return userArr;
 	};
 	
 	
@@ -75,6 +75,7 @@ const GameBoard = (function(){
 			tileDiv.dataset.row = i;
 			tileDiv.textContent = tile;
 			tilesContainer.appendChild(tileDiv);
+			//~ changeRowColor();
 		});
 	};
 	
@@ -102,13 +103,14 @@ const GameBoard = (function(){
 		}, 1500);
 	};
 	
-	function changeRowColor(row){
-		const tilesDiv = document.querySelectorAll('[data-num]');
+	function changeRowColor(userArr){
+		const tilesDiv = document.querySelectorAll(`[data-row="${userArr[0].row}"]`);
+		tilesDiv.forEach((tileDiv,index) => {
+			tileDiv.style.setProperty('color', `var(--${userArr[index].color}`);
+		});
 		
 	};
-	
-	changeRowColor();
-	return { tiles, updateBoard, showMessage }
+	return { tiles, updateBoard, showMessage, changeRowColor }
 	
 })();
 
@@ -125,6 +127,10 @@ const GameController = (function(){
 	let guess = '';
 	const guesses = [];
 	function updateTiles(e){
+		if(guesses.length === 6) {
+			GameBoard.showMessage('You have lost', 'darkBlue');
+			return;
+		};
 		
 		let keyPressed = e.target.dataset.key;;
 		switch(keyPressed){
@@ -138,7 +144,6 @@ const GameController = (function(){
 						const tilesDiv = document.querySelectorAll('[data-num]');
 						let row = guesses.length;
 						WordsWorld.checkGuess(guess, row);
-						
 						guess = '';
 						count = 0;
 					} else {
