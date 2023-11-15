@@ -32,16 +32,19 @@ const WordsWorld = (function(){
 				if(userGuess[i] === temp[j]){
 					if(userGuess.indexOf(userGuess[i]) === gameWord.indexOf(temp[j])){
 						userArr[i].color = "green";
+						let tempNewArr = temp.split('');
+						tempNewArr.splice(j, 1);
+						temp = tempNewArr.join('');
 					} else {
 						userArr[i].color = "yellow";
+						let tempNewArr = temp.split('');
+						tempNewArr.splice(j, 1);
+						temp = tempNewArr.join('');
 					}
-					let tempNewArr = temp.split('');
-					tempNewArr.splice(j, 1);
-					temp = tempNewArr.join('');
 				}
 			}
 		}
-		GameBoard.changeRowColor(userArr);
+		//~ GameBoard.changeRowColor(userArr);
 		return userArr;
 	};
 	
@@ -58,7 +61,7 @@ const GameBoard = (function(){
 		tiles[i] = '';
 	};
 	
-	function fillTiles(tiles){
+	function fillTiles(tiles, userArr){
 		const messageContainer = document.createElement('div');
 		messageContainer.setAttribute('id', 'message-container');
 		tilesContainer.appendChild(messageContainer);
@@ -75,7 +78,7 @@ const GameBoard = (function(){
 			tileDiv.dataset.row = i;
 			tileDiv.textContent = tile;
 			tilesContainer.appendChild(tileDiv);
-			//~ changeRowColor();
+			
 		});
 	};
 	
@@ -103,11 +106,21 @@ const GameBoard = (function(){
 		}, 1500);
 	};
 	
-	function changeRowColor(userArr){
-		const tilesDiv = document.querySelectorAll(`[data-row="${userArr[0].row}"]`);
-		tilesDiv.forEach((tileDiv,index) => {
-			tileDiv.style.setProperty('color', `var(--${userArr[index].color}`);
+	const colorTilesArr = [];
+	
+	function changeRowColor(userGuess, row){
+		const userArr = WordsWorld.checkGuess(userGuess, row);
+		userArr.forEach(tile => {
+			colorTilesArr.push(tile);
+		});	
+		const tilesDiv = document.querySelectorAll('#tile');
+		tilesDiv.forEach((tile, index) => {
+			if(colorTilesArr[index]){
+				tile.classList.add(colorTilesArr[index].color);
+				//~ console.log(index);
+			}
 		});
+		
 		
 	};
 	return { tiles, updateBoard, showMessage, changeRowColor }
@@ -142,8 +155,8 @@ const GameController = (function(){
 					if(WordsWorld.checkGuessExists(guess)){
 						guesses.push(guess);
 						const tilesDiv = document.querySelectorAll('[data-num]');
-						let row = guesses.length;
-						WordsWorld.checkGuess(guess, row);
+						var row = guesses.length;
+						GameBoard.changeRowColor(guess, row);
 						guess = '';
 						count = 0;
 					} else {
@@ -169,6 +182,7 @@ const GameController = (function(){
 					i++;
 					count++;
 					GameBoard.updateBoard(tiles);
+					//~ GameBoard.changeRowColor(tiles);
 				}
 		}
 		

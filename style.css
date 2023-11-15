@@ -59,3 +59,15 @@ button[data-key="Backspace"] {
 	user-select: none;
 }
 
+#tiles-container .dark {
+	color: var(--dark);
+}
+
+#tiles-container .yellow {
+	color: var(--yellow);
+}
+
+#tiles-container .green {
+	color: var(--green);
+}
+
