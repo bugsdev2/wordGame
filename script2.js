@@ -44,7 +44,6 @@ const WordsWorld = (function(){
 				}
 			}
 		}
-		//~ GameBoard.changeRowColor(userArr);
 		return userArr;
 	};
 	
@@ -110,6 +109,7 @@ const GameBoard = (function(){
 	
 	function changeRowColor(userGuess, row){
 		const userArr = WordsWorld.checkGuess(userGuess, row);
+		
 		userArr.forEach(tile => {
 			colorTilesArr.push(tile);
 		});	
@@ -121,6 +121,15 @@ const GameBoard = (function(){
 			}
 		});
 		
+		if(userArr[0].color == 'green' && userArr[1].color == 'green' && userArr[2].color == 'green' && userArr[3].color == 'green' && userArr[4].color == 'green'){
+			GameBoard.showMessage('Congrats! You have guessed the word correctly', 'green');
+			setTimeout(() => {
+				location.reload();
+			}, 3500)
+			const buttons = document.querySelectorAll(button => {
+				button.removeEventListener('updateTiles');
+			});
+		}
 		
 	};
 	return { tiles, updateBoard, showMessage, changeRowColor }
