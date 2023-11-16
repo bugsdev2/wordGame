@@ -139,6 +139,7 @@ const GameController = (function(){
 	let count = 0;
 	let guess = '';
 	const guesses = [];
+	let row = 0;
 	function updateTiles(e){
 		if(guesses.length === 6) {
 			GameBoard.showMessage('You have lost', 'darkBlue');
@@ -155,7 +156,7 @@ const GameController = (function(){
 					if(WordsWorld.checkGuessExists(guess)){
 						guesses.push(guess);
 						const tilesDiv = document.querySelectorAll('[data-num]');
-						var row = guesses.length;
+						let row = guesses.length;
 						GameBoard.changeRowColor(guess, row);
 						guess = '';
 						count = 0;
@@ -176,13 +177,15 @@ const GameController = (function(){
 				}
 				break;
 			default: 
+				
 				if(count<5){
 					tiles[i] = e.target.dataset.key;
 					guess += tiles[i];
 					i++;
 					count++;
 					GameBoard.updateBoard(tiles);
-					//~ GameBoard.changeRowColor(tiles);
+					//~ GameBoard.changeRowColor(guess, row);
+					//~ console.log(guess, row);
 				}
 		}
 		
