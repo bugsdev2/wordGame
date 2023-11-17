@@ -71,3 +71,11 @@ button[data-key="Backspace"] {
 	color: var(--green);
 }
 
+/*
+button.dark {
+	background: var(--dark);
+	border: var(--grey);
+}
+*/
+
+

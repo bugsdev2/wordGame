@@ -32,14 +32,17 @@ const WordsWorld = (function(){
 				if(userGuess[i] === temp[j]){
 					if(userGuess.indexOf(userGuess[i]) === gameWord.indexOf(temp[j])){
 						userArr[i].color = "green";
+						const buttons = document.querySelectorAll('button');
 						let tempNewArr = temp.split('');
 						tempNewArr.splice(j, 1);
 						temp = tempNewArr.join('');
+						break;
 					} else {
 						userArr[i].color = "yellow";
 						let tempNewArr = temp.split('');
 						tempNewArr.splice(j, 1);
 						temp = tempNewArr.join('');
+						break;
 					}
 				}
 			}
@@ -117,7 +120,21 @@ const GameBoard = (function(){
 		tilesDiv.forEach((tile, index) => {
 			if(colorTilesArr[index]){
 				tile.classList.add(colorTilesArr[index].color);
-				//~ console.log(index);
+			}
+		});
+		
+		const buttons = document.querySelectorAll('button');
+		userArr.forEach(tile => {
+			if(tile.color === "green"){
+					
+			} else if (tile.color === "yellow"){
+				
+			} else {
+				buttons.forEach(button => {
+					if(tile.item === button.dataset.key.toLowerCase()){
+						button.className = "btn btn-dark border-secondary";
+					}
+				});
 			}
 		});
 		
