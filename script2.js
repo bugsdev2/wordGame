@@ -35,14 +35,12 @@ const WordsWorld = (function(){
 						let tempNewArr = temp.split('');
 						tempNewArr.splice(j, 1);
 						temp = tempNewArr.join('');
-						//~ console.log(userGuess, temp);
 						break;
 					} else {
 						userArr[i].color = "yellow";
 						let tempNewArr = temp.split('');
 						tempNewArr.splice(j, 1);
 						temp = tempNewArr.join('');
-						//~ console.log(userGuess, temp);
 						break;
 					}
 				}
@@ -52,7 +50,6 @@ const WordsWorld = (function(){
 	};
 	
 	
-	console.log(gameWord);
 	return { gameWord, checkGuessExists, checkGuess }
 })();
 
@@ -123,7 +120,6 @@ const GameBoard = (function(){
 					tile.classList.add(colorTilesArr[index].color);
 				}
 			});
-			console.log(colorTilesArr);
 			
 		} else {
 			
