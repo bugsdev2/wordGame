@@ -1,0 +1,45 @@
+function checkGuess(userGuess, row){
+		let temp = 'nanny';
+		const userArr = userGuess.split('').map((letter,index) => {
+			let obj = { 'location': index, 'item': letter, 'row': row, 'color': 'dark' };
+			return obj;
+		});
+		const tempArr = temp.split('').map((letter,index) => {
+			let obj = { 'location': index, 'item': letter, 'row': row };
+			return obj;
+		});
+		//~ let j = 0;
+		for(let i=0;i<userGuess.length;i++){
+			for(let j = 0;j<temp.length;j++){
+				if(userGuess[i] === temp[j]){
+					if(userGuess.indexOf(userGuess[i]) === temp.indexOf(temp[j])){
+						userArr[i].color = "green";
+						const buttons = document.querySelectorAll('button');
+						let tempNewArr = temp.split('');
+						tempNewArr.splice(j, 1);
+						temp = tempNewArr.join('');
+						
+						//~ let guessNewArr = userGuess.split('');
+						//~ guessNewArr.splice(i, 1);
+						//~ userGuess = guessNewArr.join('');
+						
+						console.log(userGuess, temp);
+						break;
+					} else {
+						userArr[i].color = "yellow";
+						let tempNewArr = temp.split('');
+						tempNewArr.splice(j, 1);
+						temp = tempNewArr.join('');
+						
+						//~ let guessNewArr = userGuess.split('');
+						//~ guessNewArr.splice(i, 1);
+						//~ userGuess = guessNewArr.join('');
+						
+						console.log(userGuess, temp);
+						break;
+					}
+				}
+			}
+		}
+		return userArr;
+	};

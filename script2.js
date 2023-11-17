@@ -26,22 +26,23 @@ const WordsWorld = (function(){
 			let obj = { 'location': index, 'item': letter, 'row': row };
 			return obj;
 		});
-		let j = 0;
+		//~ let j = 0;
 		for(let i=0;i<userGuess.length;i++){
 			for(let j = 0;j<temp.length;j++){
 				if(userGuess[i] === temp[j]){
 					if(userGuess.indexOf(userGuess[i]) === gameWord.indexOf(temp[j])){
 						userArr[i].color = "green";
-						const buttons = document.querySelectorAll('button');
 						let tempNewArr = temp.split('');
 						tempNewArr.splice(j, 1);
 						temp = tempNewArr.join('');
+						//~ console.log(userGuess, temp);
 						break;
 					} else {
 						userArr[i].color = "yellow";
 						let tempNewArr = temp.split('');
 						tempNewArr.splice(j, 1);
 						temp = tempNewArr.join('');
+						//~ console.log(userGuess, temp);
 						break;
 					}
 				}
@@ -111,44 +112,64 @@ const GameBoard = (function(){
 	const colorTilesArr = [];
 	
 	function changeRowColor(userGuess, row){
-		const userArr = WordsWorld.checkGuess(userGuess, row);
 		
-		userArr.forEach(tile => {
-			colorTilesArr.push(tile);
-		});	
-		const tilesDiv = document.querySelectorAll('#tile');
-		tilesDiv.forEach((tile, index) => {
-			if(colorTilesArr[index]){
-				tile.classList.add(colorTilesArr[index].color);
-			}
-		});
 		
-		const buttons = document.querySelectorAll('button');
-		userArr.forEach(tile => {
-			if(tile.color === "green"){
+		
+		if (userGuess === 'flag'){
+			
+			const tilesDiv = document.querySelectorAll('#tile');
+			tilesDiv.forEach((tile, index) => {
+				if(colorTilesArr[index]){
+					tile.classList.add(colorTilesArr[index].color);
+				}
+			});
+			console.log(colorTilesArr);
+			
+		} else {
+			
+			const userArr = WordsWorld.checkGuess(userGuess, row);
+		
+			userArr.forEach(tile => {
+				colorTilesArr.push(tile);
+			});	
+			const tilesDiv = document.querySelectorAll('#tile');
+			tilesDiv.forEach((tile, index) => {
+				if(colorTilesArr[index]){
+					tile.classList.add(colorTilesArr[index].color);
+				}
+			});
+			
+			const buttons = document.querySelectorAll('button');
+			userArr.forEach(tile => {
+				if(tile.color === "green"){
+						
+				} else if (tile.color === "yellow"){
 					
-			} else if (tile.color === "yellow"){
-				
-			} else {
-				buttons.forEach(button => {
-					if(tile.item === button.dataset.key.toLowerCase()){
-						button.className = "btn btn-dark border-secondary";
-					}
+				} else {
+					buttons.forEach(button => {
+						if(tile.item === button.dataset.key.toLowerCase()){
+							button.className = "btn btn-dark border-secondary";
+						}
+					});
+				}
+			});
+			
+			if(userArr[0].color == 'green' && userArr[1].color == 'green' && userArr[2].color == 'green' && userArr[3].color == 'green' && userArr[4].color == 'green'){
+				GameBoard.showMessage('Congrats! You have guessed the word correctly', 'green');
+				setTimeout(() => {
+					location.reload();
+				}, 3500)
+				const buttons = document.querySelectorAll(button => {
+					button.removeEventListener('updateTiles');
 				});
 			}
-		});
-		
-		if(userArr[0].color == 'green' && userArr[1].color == 'green' && userArr[2].color == 'green' && userArr[3].color == 'green' && userArr[4].color == 'green'){
-			GameBoard.showMessage('Congrats! You have guessed the word correctly', 'green');
-			setTimeout(() => {
-				location.reload();
-			}, 3500)
-			const buttons = document.querySelectorAll(button => {
-				button.removeEventListener('updateTiles');
-			});
 		}
 		
+		
+		return colorTilesArr;
+		
 	};
+	
 	return { tiles, updateBoard, showMessage, changeRowColor }
 	
 })();
@@ -179,7 +200,7 @@ const GameController = (function(){
 					if(WordsWorld.checkGuessExists(guess)){
 						guesses.push(guess);
 						const tilesDiv = document.querySelectorAll('[data-num]');
-						let row = guesses.length;
+						row = guesses.length;
 						GameBoard.changeRowColor(guess, row);
 						guess = '';
 						count = 0;
@@ -197,6 +218,7 @@ const GameController = (function(){
 					temp.pop();
 					guess = temp.join('');
 					GameBoard.updateBoard(tiles);
+					GameBoard.changeRowColor('flag', row);
 				}
 				break;
 			default: 
@@ -204,11 +226,10 @@ const GameController = (function(){
 				if(count<5){
 					tiles[i] = e.target.dataset.key;
 					guess += tiles[i];
+					GameBoard.updateBoard(tiles);
 					i++;
 					count++;
-					GameBoard.updateBoard(tiles);
-					//~ GameBoard.changeRowColor(guess, row);
-					//~ console.log(guess, row);
+					GameBoard.changeRowColor('flag', row);
 				}
 		}
 		
