@@ -105,7 +105,7 @@ const GameBoard = (function(){
 		setTimeout(() => {
 			messageContainer.textContent = '';
 			messageContainer.style.visibility = 'hidden';
-		}, 1500);
+		}, 2000);
 	};
 	
 	const colorTilesArr = [];
@@ -167,10 +167,7 @@ const GameController = (function(){
 	const guesses = [];
 	let row = 0;
 	function updateTiles(e){
-		if(guesses.length === 6) {
-			GameBoard.showMessage('You have lost', 'darkBlue');
-			return;
-		};
+		
 		
 		let keyPressed = e.target.dataset.key;;
 		switch(keyPressed){
@@ -214,6 +211,14 @@ const GameController = (function(){
 					//~ console.log(guess, row);
 				}
 		}
+		
+		if(guesses.length === 6) {
+			GameBoard.showMessage(`You have lost. The word was ${WordsWorld.gameWord.toUpperCase()}`, 'darkBlue');
+			setTimeout(() => {
+				location.reload();
+			}, 3500)
+			return;
+		};
 		
 	};
 	
