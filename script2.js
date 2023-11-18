@@ -109,9 +109,6 @@ const GameBoard = (function(){
 	const colorTilesArr = [];
 	
 	function changeRowColor(userGuess, row){
-		
-		
-		
 		if (userGuess === 'flag'){
 			
 			const tilesDiv = document.querySelectorAll('#tile');
@@ -137,14 +134,22 @@ const GameBoard = (function(){
 			
 			const buttons = document.querySelectorAll('button');
 			userArr.forEach(tile => {
-				if(tile.color === "green"){
-						
-				} else if (tile.color === "yellow"){
-					
-				} else {
+				if(tile.color === "dark"){
 					buttons.forEach(button => {
 						if(tile.item === button.dataset.key.toLowerCase()){
 							button.className = "btn btn-dark border-secondary";
+						}
+					});
+				} else if (tile.color === "yellow"){
+					buttons.forEach(button => {
+						if(tile.item === button.dataset.key.toLowerCase()){
+							button.className = "btn btn-warning";
+						}
+					});
+				} else if(tile.color === 'green'){
+					buttons.forEach(button => {
+						if(tile.item === button.dataset.key.toLowerCase()){
+							button.className = "btn btn-success";
 						}
 					});
 				}
@@ -166,7 +171,27 @@ const GameBoard = (function(){
 		
 	};
 	
-	return { tiles, updateBoard, showMessage, changeRowColor }
+	function getMeaning(e){
+		let row = e.target.dataset.row;
+		let word = '';
+		const tileDivs = document.querySelectorAll(`[data-row="${row}"]`);
+		tileDivs.forEach(tile => {
+			word += tile.innerText
+		});
+		word = word.toLowerCase();
+		if(word.length !== 5){
+			showMessage('Complete the word', 'darkBlue');
+			return;
+		} 
+		if(WordsWorld.checkGuessExists(word)){
+			window.open(`https://en.wiktionary.org/wiki/${word}`, '_blank');
+		} else {
+			console.log('err');
+		};
+		
+	};
+	
+	return { tiles, updateBoard, showMessage, changeRowColor, getMeaning }
 	
 })();
 
@@ -174,8 +199,28 @@ const GameController = (function(){
 	
 	const buttons = document.querySelectorAll('button');
 	buttons.forEach(button => {
-		button.addEventListener('click', updateTiles);
+		button.addEventListener('click', mouseEnter);
 	});
+	
+	function mouseEnter(e){
+		let key = e.target.dataset.key;
+		updateTiles(key);
+	};
+	
+	document.body.addEventListener('keydown', keyBoardEnter);
+	
+	function keyBoardEnter(e){
+		let regex = /^[a-zA-Z]$/;
+		let key = '';
+		if(e.key === 'Enter' || e.key === 'Backspace'){
+			key = e.key
+		} else if (e.key.match(regex)) {
+			key = e.key.toUpperCase();
+		} else {
+			return;
+		}
+		updateTiles(key);
+	};
 	
 	const tiles = GameBoard.tiles;
 	let i = 0;
@@ -183,10 +228,8 @@ const GameController = (function(){
 	let guess = '';
 	const guesses = [];
 	let row = 0;
-	function updateTiles(e){
+	function updateTiles(keyPressed){
 		
-		
-		let keyPressed = e.target.dataset.key;;
 		switch(keyPressed){
 			case 'Enter':
 				guess = guess.toLowerCase();
@@ -220,7 +263,7 @@ const GameController = (function(){
 			default: 
 				
 				if(count<5){
-					tiles[i] = e.target.dataset.key;
+					tiles[i] = keyPressed;
 					guess += tiles[i];
 					GameBoard.updateBoard(tiles);
 					i++;
@@ -228,6 +271,13 @@ const GameController = (function(){
 					GameBoard.changeRowColor('flag', row);
 				}
 		}
+		
+		const tilesDiv = document.querySelectorAll('#tile');
+			tilesDiv.forEach(tile => {
+				tile.addEventListener('click', GameBoard.getMeaning);
+			});
+			
+		
 		
 		if(guesses.length === 6) {
 			GameBoard.showMessage(`You have lost. The word was ${WordsWorld.gameWord.toUpperCase()}`, 'darkBlue');
