@@ -6,7 +6,7 @@ const WordsWorld = (function(){
 	function generateWord(){
 		 return wordsList[Math.round(Math.random()*wordsList.length)];
 	};
-	let gameWord = generateWord();
+	let gameWord = 'still'//generateWord();
 	
 	function checkGuessExists(guess){
 		for(let word of dictionary){
@@ -26,26 +26,33 @@ const WordsWorld = (function(){
 			let obj = { 'location': index, 'item': letter, 'row': row };
 			return obj;
 		});
-		//~ let j = 0;
-		for(let i=0;i<userGuess.length;i++){
-			for(let j = 0;j<temp.length;j++){
-				if(userGuess[i] === temp[j]){
-					if(userGuess.indexOf(userGuess[i]) === gameWord.indexOf(temp[j])){
-						userArr[i].color = "green";
-						let tempNewArr = temp.split('');
-						tempNewArr.splice(j, 1);
-						temp = tempNewArr.join('');
-						break;
-					} else {
-						userArr[i].color = "yellow";
-						let tempNewArr = temp.split('');
-						tempNewArr.splice(j, 1);
-						temp = tempNewArr.join('');
-						break;
-					}
-				}
+		
+		for(let i=0;i<userGuess.length; i++){
+			if(temp.includes(userGuess[i]) && tempArr.location === userArr[i].location){
+				console.log(userGuess[i], userArr[i].location);
+				console.log(temp[i], tempArr[i].location);
 			}
 		}
+	
+		//~ for(let i=0;i<userGuess.length;i++){
+			//~ for(let j = 0;j<temp.length;j++){
+				//~ if(userGuess[i] === temp[j]){
+					//~ if(userGuess.indexOf(userGuess[i]) === gameWord.indexOf(temp[j])){
+						//~ userArr[i].color = "green";
+						//~ let tempNewArr = temp.split('');
+						//~ tempNewArr.splice(j, 1);
+						//~ temp = tempNewArr.join('');
+						//~ break;
+					//~ } else {
+						//~ userArr[i].color = "yellow";
+						//~ let tempNewArr = temp.split('');
+						//~ tempNewArr.splice(j, 1);
+						//~ temp = tempNewArr.join('');
+						//~ break;
+					//~ }
+				//~ }
+			//~ }
+		//~ }
 		return userArr;
 	};
 	
@@ -137,12 +144,14 @@ const GameBoard = (function(){
 				if(tile.color === "dark"){
 					buttons.forEach(button => {
 						if(tile.item === button.dataset.key.toLowerCase()){
+							if(button.className === 'btn btn-warning') return;
 							button.className = "btn btn-dark border-secondary";
 						}
 					});
 				} else if (tile.color === "yellow"){
 					buttons.forEach(button => {
 						if(tile.item === button.dataset.key.toLowerCase()){
+							if (button.className === 'btn btn-success') return;
 							button.className = "btn btn-warning";
 						}
 					});
