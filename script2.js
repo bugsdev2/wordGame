@@ -6,7 +6,7 @@ const WordsWorld = (function(){
 	function generateWord(){
 		 return wordsList[Math.round(Math.random()*wordsList.length)];
 	};
-	let gameWord = 'still'//generateWord();
+	let gameWord = generateWord();
 	
 	function checkGuessExists(guess){
 		for(let word of dictionary){
@@ -34,25 +34,25 @@ const WordsWorld = (function(){
 			}
 		}
 	
-		//~ for(let i=0;i<userGuess.length;i++){
-			//~ for(let j = 0;j<temp.length;j++){
-				//~ if(userGuess[i] === temp[j]){
-					//~ if(userGuess.indexOf(userGuess[i]) === gameWord.indexOf(temp[j])){
-						//~ userArr[i].color = "green";
-						//~ let tempNewArr = temp.split('');
-						//~ tempNewArr.splice(j, 1);
-						//~ temp = tempNewArr.join('');
-						//~ break;
-					//~ } else {
-						//~ userArr[i].color = "yellow";
-						//~ let tempNewArr = temp.split('');
-						//~ tempNewArr.splice(j, 1);
-						//~ temp = tempNewArr.join('');
-						//~ break;
-					//~ }
-				//~ }
-			//~ }
-		//~ }
+		for(let i=0;i<userGuess.length;i++){
+			for(let j = 0;j<temp.length;j++){
+				if(userGuess[i] === temp[j]){
+					if(userGuess.indexOf(userGuess[i]) === gameWord.indexOf(temp[j])){
+						userArr[i].color = "green";
+						let tempNewArr = temp.split('');
+						tempNewArr.splice(j, 1);
+						temp = tempNewArr.join('');
+						break;
+					} else {
+						userArr[i].color = "yellow";
+						let tempNewArr = temp.split('');
+						tempNewArr.splice(j, 1);
+						temp = tempNewArr.join('');
+						break;
+					}
+				}
+			}
+		}
 		return userArr;
 	};
 	
