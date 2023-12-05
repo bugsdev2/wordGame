@@ -166,12 +166,16 @@ const GameBoard = (function(){
 			
 			if(userArr[0].color == 'green' && userArr[1].color == 'green' && userArr[2].color == 'green' && userArr[3].color == 'green' && userArr[4].color == 'green'){
 				GameBoard.showMessage('Congrats! You have guessed the word correctly', 'green');
-				setTimeout(() => {
-					location.reload();
-				}, 3500)
-				const buttons = document.querySelectorAll(button => {
-					button.removeEventListener('updateTiles');
+				const buttons = document.querySelectorAll('button');
+				buttons.forEach(button => {
+					button.removeEventListener('click', GameController.mouseEnter);
+					button.removeEventListener('keydown', GameController.keyBoardEnter);
 				});
+				
+				document.body.addEventListener('click', (e) => {
+					if(confirm('Do you want to start a new game?')) location.reload();
+				});
+				
 			}
 		}
 		
@@ -290,14 +294,21 @@ const GameController = (function(){
 		
 		if(guesses.length === 6) {
 			GameBoard.showMessage(`You have lost. The word was ${WordsWorld.gameWord.toUpperCase()}`, 'darkBlue');
-			setTimeout(() => {
-				location.reload();
-			}, 3500)
-			return;
+			
+			const buttons = document.querySelectorAll('button');
+			buttons.forEach(button => {
+				button.removeEventListener('click', mouseEnter);
+				button.removeEventListener('keydown', keyBoardEnter);
+			});
+			
+			document.body.addEventListener('click', (e) => {
+				if(confirm('Do you want to start a new game?')) location.reload();
+				return;
+			});
 		};
 		
 	};
 	
-	
+	return { mouseEnter, keyBoardEnter }
 	
 })();
