@@ -102,7 +102,7 @@ const GameBoard = (function(){
 		fillTiles(tiles);
 	};
 	
-	function showMessage(message, color){
+	function showMessage(message, color, time){
 		const messageContainer = document.getElementById('message-container');
 		messageContainer.textContent = message;
 		messageContainer.style.background = `var(--${color})`;
@@ -110,7 +110,7 @@ const GameBoard = (function(){
 		setTimeout(() => {
 			messageContainer.textContent = '';
 			messageContainer.style.visibility = 'hidden';
-		}, 2000);
+		}, time);
 	};
 	
 	const colorTilesArr = [];
@@ -165,7 +165,7 @@ const GameBoard = (function(){
 			});
 			
 			if(userArr[0].color == 'green' && userArr[1].color == 'green' && userArr[2].color == 'green' && userArr[3].color == 'green' && userArr[4].color == 'green'){
-				GameBoard.showMessage('Congrats! You have guessed the word correctly', 'green');
+				GameBoard.showMessage('Congrats! You have guessed the word correctly', 'green', 10000);
 				const buttons = document.querySelectorAll('button');
 				buttons.forEach(button => {
 					button.removeEventListener('click', GameController.mouseEnter);
@@ -173,7 +173,10 @@ const GameBoard = (function(){
 				});
 				
 				document.body.addEventListener('click', (e) => {
-					if(confirm('Do you want to start a new game?')) location.reload();
+					if(e.target.getAttribute('class') === null || e.target.getAttribute('class').includes('container')) {
+						if(confirm('Do you want to start a new game?')) location.reload();
+						return;
+					}
 				});
 				
 			}
@@ -193,7 +196,7 @@ const GameBoard = (function(){
 		});
 		word = word.toLowerCase();
 		if(word.length !== 5){
-			showMessage('Complete the word', 'darkBlue');
+			showMessage('Complete the word', 'darkBlue', 1500);
 			return;
 		} 
 		if(WordsWorld.checkGuessExists(word)){
@@ -246,8 +249,8 @@ const GameController = (function(){
 		switch(keyPressed){
 			case 'Enter':
 				guess = guess.toLowerCase();
-				if(guess.length < 5) GameBoard.showMessage('Complete the Word', 'darkBlue');
-				if(guess.length === 0) GameBoard.showMessage('Enter a Guess', 'darkBlue');
+				if(guess.length === 0) GameBoard.showMessage('Enter a Guess', 'darkBlue', 1500);
+				if(guess.length < 5) GameBoard.showMessage('Complete the Word', 'darkBlue', 1500);
 				if(guess.length === 5){
 					if(WordsWorld.checkGuessExists(guess)){
 						guesses.push(guess);
@@ -257,7 +260,7 @@ const GameController = (function(){
 						guess = '';
 						count = 0;
 					} else {
-						GameBoard.showMessage(`Word doesn't exit. Try again.`, 'red');
+						GameBoard.showMessage(`Word doesn't exit. Try again.`, 'red', 1500);
 					};
 				}
 				break;
@@ -293,7 +296,7 @@ const GameController = (function(){
 		
 		
 		if(guesses.length === 6) {
-			GameBoard.showMessage(`You have lost. The word was ${WordsWorld.gameWord.toUpperCase()}`, 'darkBlue');
+			GameBoard.showMessage(`You have lost. The word was ${WordsWorld.gameWord.toUpperCase()}`, 'darkBlue', 10000);
 			
 			const buttons = document.querySelectorAll('button');
 			buttons.forEach(button => {
@@ -302,8 +305,10 @@ const GameController = (function(){
 			});
 			
 			document.body.addEventListener('click', (e) => {
-				if(confirm('Do you want to start a new game?')) location.reload();
-				return;
+				if(e.target.getAttribute('class') === null || e.target.getAttribute('class').includes('container')) {
+					if(confirm('Do you want to start a new game?')) location.reload();
+					return;
+				}
 			});
 		};
 		
