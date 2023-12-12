@@ -235,6 +235,9 @@ const GameController = (function(){
 	document.body.addEventListener('keydown', keyBoardEnter);
 	
 	function keyBoardEnter(e){
+		if(e.key === 'Backspace') {
+			e.preventDefault();
+		}
 		let regex = /^[a-zA-Z]$/;
 		let key = '';
 		if(e.key === 'Enter' || e.key === 'Backspace'){
