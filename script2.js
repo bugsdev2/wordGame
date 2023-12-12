@@ -6,7 +6,7 @@ const WordsWorld = (function(){
 	function generateWord(){
 		 return wordsList[Math.round(Math.random()*wordsList.length)];
 	};
-	let gameWord = generateWord();
+	let gameWord = 'beast' //generateWord();
 	
 	function checkGuessExists(guess){
 		for(let word of dictionary){
@@ -71,6 +71,7 @@ const GameBoard = (function(){
 	function fillTiles(tiles, userArr){
 		const messageContainer = document.createElement('div');
 		messageContainer.setAttribute('id', 'message-container');
+		messageContainer.classList.add('message-box');
 		tilesContainer.appendChild(messageContainer);
 		let i = 1;
 		let count = 0;
@@ -323,6 +324,11 @@ const GameController = (function(){
 		if(guesses.length === 6) {
 			if (GameBoard.checkWin(WordsWorld.checkGuess(tempGuess, row)) === false) {
 				GameBoard.showMessage(`You have lost. The word was ${WordsWorld.gameWord.toUpperCase()}`, 'darkBlue', 10000);
+				
+				const messageContainer = document.getElementById('message-container');
+				messageContainer.addEventListener('click', (e) => {
+					window.open(`https://en.wiktionary.org/wiki/${WordsWorld.gameWord}`, '_blank');
+				});
 			
 				const buttons = document.querySelectorAll('button');
 				buttons.forEach(button => {
