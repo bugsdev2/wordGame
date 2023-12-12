@@ -181,15 +181,25 @@ const GameBoard = (function(){
 				const buttons = document.querySelectorAll('button');
 				buttons.forEach(button => {
 					button.removeEventListener('click', GameController.mouseEnter);
-					button.removeEventListener('keydown', GameController.keyBoardEnter);
 				});
-				
+				document.body.removeEventListener('keydown', keyBoardEnter);
 				document.body.addEventListener('click', (e) => {
 					if(e.target.getAttribute('class') === null || e.target.getAttribute('class').includes('container')) {
 						if(confirm('Do you want to start a new game?')) location.reload();
 						return;
 					}
 				});
+				document.body.addEventListener('keydown', (e) => {
+					if(e.key === 'Backspace') e.preventDefault();
+				});
+				setTimeout(() => {
+					document.body.addEventListener('keydown', (e) => {
+						if(e.key === 'Enter'){		
+							if(confirm('Do you want to start a new game?')) location.reload();
+							return;
+						}
+					});
+				}, 500);
 				
 		} else {
 			return false;
@@ -310,15 +320,14 @@ const GameController = (function(){
 		
 		
 		if(guesses.length === 6) {
-			console.log(tempGuess, row);
 			if (GameBoard.checkWin(WordsWorld.checkGuess(tempGuess, row)) === false) {
 				GameBoard.showMessage(`You have lost. The word was ${WordsWorld.gameWord.toUpperCase()}`, 'darkBlue', 10000);
 			
 				const buttons = document.querySelectorAll('button');
 				buttons.forEach(button => {
 					button.removeEventListener('click', mouseEnter);
-					button.removeEventListener('keydown', keyBoardEnter);
 				});
+				document.body.removeEventListener('keydown', keyBoardEnter);
 				
 				document.body.addEventListener('click', (e) => {
 					if(e.target.getAttribute('class') === null || e.target.getAttribute('class').includes('container')) {
@@ -326,6 +335,17 @@ const GameController = (function(){
 						return;
 					}
 				});
+				document.body.addEventListener('keydown', (e) => {
+					if(e.key === 'Backspace') e.preventDefault();
+				});
+				setTimeout(() => {
+					document.body.addEventListener('keydown', (e) => {
+						if(e.key === 'Enter'){		
+							if(confirm('Do you want to start a new game?')) location.reload();
+							return;
+						}
+					});
+				}, 500);
 			};
 			
 			
