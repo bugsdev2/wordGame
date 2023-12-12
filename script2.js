@@ -182,7 +182,8 @@ const GameBoard = (function(){
 				buttons.forEach(button => {
 					button.removeEventListener('click', GameController.mouseEnter);
 				});
-				document.body.removeEventListener('keydown', keyBoardEnter);
+				document.body.removeEventListener('keydown', GameController.keyBoardEnter);
+				
 				document.body.addEventListener('click', (e) => {
 					if(e.target.getAttribute('class') === null || e.target.getAttribute('class').includes('container')) {
 						if(confirm('Do you want to start a new game?')) location.reload();
