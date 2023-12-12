@@ -6,7 +6,7 @@ const WordsWorld = (function(){
 	function generateWord(){
 		 return wordsList[Math.round(Math.random()*wordsList.length)];
 	};
-	let gameWord = 'beast' //generateWord();
+	let gameWord = generateWord();
 	
 	function checkGuessExists(guess){
 		for(let word of dictionary){
