@@ -164,7 +164,19 @@ const GameBoard = (function(){
 				}
 			});
 			
-			if(userArr[0].color == 'green' && userArr[1].color == 'green' && userArr[2].color == 'green' && userArr[3].color == 'green' && userArr[4].color == 'green'){
+			checkWin(userArr);
+			
+		}
+		
+		
+		
+		return colorTilesArr;
+		
+	};
+	
+	function checkWin(userArr){
+		
+		if(userArr[0].color == 'green' && userArr[1].color == 'green' && userArr[2].color == 'green' && userArr[3].color == 'green' && userArr[4].color == 'green'){
 				GameBoard.showMessage('Congrats! You have guessed the word correctly', 'green', 10000);
 				const buttons = document.querySelectorAll('button');
 				buttons.forEach(button => {
@@ -179,12 +191,9 @@ const GameBoard = (function(){
 					}
 				});
 				
-			}
+		} else {
+			return false;
 		}
-		
-		
-		return colorTilesArr;
-		
 	};
 	
 	function getMeaning(e){
@@ -207,7 +216,7 @@ const GameBoard = (function(){
 		
 	};
 	
-	return { tiles, updateBoard, showMessage, changeRowColor, getMeaning }
+	return { tiles, updateBoard, showMessage, changeRowColor, getMeaning, checkWin }
 	
 })();
 
@@ -244,6 +253,7 @@ const GameController = (function(){
 	let guess = '';
 	const guesses = [];
 	let row = 0;
+	
 	function updateTiles(keyPressed){
 		
 		switch(keyPressed){
@@ -254,6 +264,7 @@ const GameController = (function(){
 				if(guess.length === 5){
 					if(WordsWorld.checkGuessExists(guess)){
 						guesses.push(guess);
+						var tempGuess = guess;
 						const tilesDiv = document.querySelectorAll('[data-num]');
 						row = guesses.length;
 						GameBoard.changeRowColor(guess, row);
@@ -296,20 +307,25 @@ const GameController = (function(){
 		
 		
 		if(guesses.length === 6) {
-			GameBoard.showMessage(`You have lost. The word was ${WordsWorld.gameWord.toUpperCase()}`, 'darkBlue', 10000);
+			console.log(tempGuess, row);
+			if (GameBoard.checkWin(WordsWorld.checkGuess(tempGuess, row)) === false) {
+				GameBoard.showMessage(`You have lost. The word was ${WordsWorld.gameWord.toUpperCase()}`, 'darkBlue', 10000);
 			
-			const buttons = document.querySelectorAll('button');
-			buttons.forEach(button => {
-				button.removeEventListener('click', mouseEnter);
-				button.removeEventListener('keydown', keyBoardEnter);
-			});
+				const buttons = document.querySelectorAll('button');
+				buttons.forEach(button => {
+					button.removeEventListener('click', mouseEnter);
+					button.removeEventListener('keydown', keyBoardEnter);
+				});
+				
+				document.body.addEventListener('click', (e) => {
+					if(e.target.getAttribute('class') === null || e.target.getAttribute('class').includes('container')) {
+						if(confirm('Do you want to start a new game?')) location.reload();
+						return;
+					}
+				});
+			};
 			
-			document.body.addEventListener('click', (e) => {
-				if(e.target.getAttribute('class') === null || e.target.getAttribute('class').includes('container')) {
-					if(confirm('Do you want to start a new game?')) location.reload();
-					return;
-				}
-			});
+			
 		};
 		
 	};
