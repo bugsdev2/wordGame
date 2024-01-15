@@ -323,7 +323,7 @@ const GameController = (function(){
 		
 		if(guesses.length === 6) {
 			if (GameBoard.checkWin(WordsWorld.checkGuess(tempGuess, row)) === false) {
-				GameBoard.showMessage(`You have lost. The word was ${WordsWorld.gameWord.toUpperCase()}`, 'darkBlue', 10000);
+				GameBoard.showMessage(`You have lost. The word was ${WordsWorld.gameWord.toUpperCase()}`, 'darkBlue', 1000000);
 				
 				const messageContainer = document.getElementById('message-container');
 				messageContainer.addEventListener('click', (e) => {
